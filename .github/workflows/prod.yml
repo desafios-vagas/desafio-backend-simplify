@@ -35,10 +35,10 @@ jobs:
       - name: Add user to docker group
         run: sudo usermod -aG docker $(whoami)
       - name: Pull image from docker hub
-        run: docker pull eliasfernandescout/desafiosimplify:latest
+        run: sudo docker pull eliasfernandescout/desafiosimplify:latest
       - name: Remove docker container
-        run: docker rm -f desafiosimplify
+        run: sudo docker rm -f desafiosimplify
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name desafiosimplify eliasfernandescout/desafiosimplify
+        run: sudo docker run -d -p 8080:8080 --name desafiosimplify eliasfernandescout/desafiosimplify
       - name: Remove old docker image
-        run: docker image prune -f
+        run: sudo docker image prune -f
