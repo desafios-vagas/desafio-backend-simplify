@@ -4,6 +4,7 @@ import desafio_simplify.dto.TaskRequestDTO;
 import desafio_simplify.dto.TaskResponseDTO;
 import desafio_simplify.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +31,13 @@ public class TaskController {
 
     @GetMapping("/{id}")
     public ResponseEntity<TaskResponseDTO> getTaskById(@PathVariable Long id){
-        TaskResponseDTO taskResponseDTO = service.getTaskById(id);
-        return ResponseEntity.ok(taskResponseDTO);
+       try{
+           TaskResponseDTO taskResponseDTO = service.getTaskById(id);
+           return ResponseEntity.ok(taskResponseDTO);
+       }catch (RuntimeException e){
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+       }
+
     }
 
     @PutMapping("/{id}")
